@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/home/config/route.js"
+    ],
+    "names": [],
+    "mappings": ";;;;;;kBAGe,E",
+    "file": "../../../src/home/config/route.js",
+    "sourcesContent": [
+        "/**\n * Created by memee on 16/4/23.\n */\nexport default [\n];"
+    ]
+}

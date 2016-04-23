@@ -1,0 +1,11 @@
+{% extends "../common/base.html" %}
+
+{% block content %}
+
+<form action="/index/login/" method="POST">
+    <label for="vs-username">用户:<input type="text" id="vs-username" name="username"></label>
+    <label for="vs-password">密码:<input type="password" id="vs-password"  name="password"></label>
+    <input type="submit" class="vs-submit" value="登录">
+</form>
+
+{% endblock %}

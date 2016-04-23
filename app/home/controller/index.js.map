@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/home/controller/index.js"
+    ],
+    "names": [],
+    "mappings": "AAAA;;;;;;;;;;;;;;;;AAEA;;;;;;;;;;;;;;;;;;;mBAOE,W,0BAAa;;AAEX,WAAO,KAAK,OAAL,EAAP;AACD,G;;mBAED,W,0BAAa;AACT,YAAQ,GAAR,CAAY,KAAK,MAAL,EAAZ;AACA,QAAI,KAAK,MAAL,EAAJ,EAAmB;AACf,UAAI,WAAW,KAAK,IAAL,EAAf;AACA,WAAK,OAAL,CAAa,QAAb;AACH,KAHD,MAIK;AACH,aAAO,KAAK,OAAL,EAAP;AACD;AAEJ,G;;mBAED,Y,2BAAc;AACZ,QAAI,WAAW,KAAK,IAAL,EAAf;AACA,YAAQ,GAAR,CAAY,QAAZ;AACA,WAAO,KAAK,OAAL,CAAa,QAAb,CAAP;AACD,G",
+    "file": "../../../src/home/controller/index.js",
+    "sourcesContent": [
+        "'use strict';\n\nimport Base from './base.js';\n\nexport default class extends Base {\n  /**\n   * index action\n   * @return {Promise} []\n   */\n  indexAction(){\n    //auto render template file index_index.html\n    return this.display();\n  }\n\n  loginAction(){\n      console.log(this.isPost());\n      if (this.isPost()) {\n          let postData = this.post();\n          this.success(postData);\n      }\n      else {\n        return this.display();\n      }\n      \n  }\n\n  signinAction(){\n    let postData = this.post();\n    console.log(postData);\n    return this.success(postData);\n  }\n}"
+    ]
+}
