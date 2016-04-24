@@ -7,16 +7,55 @@ export default class extends Base {
    * index action
    * @return {Promise} []
    */
-  indexAction(){
+  // index.html
+  async indexAction(){
     //auto render template file index_index.html
-    return this.display();
-  }
+    var username = await this.session('islogin');
 
-  loginAction(){
-    return this.display();
-  }
+    if (username) {
+        this.assign({
+            username: username
+        });
+    }
+    else {
+        this.assign({
+            username: '登录'
+        });
+    }
 
-  signinAction(){
     return this.display();
   }
+    // 登录操作
+    async loginAction(){
+
+      if (this.isPost()) {
+          let postData = this.post();
+          let username = postData.username;
+          let data = await this.model('users').field('password').where({username:username}).select();
+
+          if (data[0].password === postData.password) {
+              this.session('islogin', username);
+              this.success();
+          }
+          else {
+              this.redirect('/index/login/');
+          }
+      }
+      else {
+        return this.display();
+      }
+      
+    }
+
+    async infoAction() {
+        this.assign({
+            nickname: 'xxxx',
+            qq: '312312',
+            email: 'asdf',
+            skills: 'xxx',
+            years: 'aa',
+            description: 'bb'
+        });
+        this.display();
+    }
 }

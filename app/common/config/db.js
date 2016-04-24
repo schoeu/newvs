@@ -9,12 +9,12 @@ exports.default = {
   type: 'mysql',
   adapter: {
     mysql: {
-      host: '45.32.250.247',
+      host: 'x',
       port: '3306',
       database: 'vs',
       user: 'root',
-      password: 'caoyifeng2b',
-      prefix: 'think_',
+      password: 'x',
+      prefix: 'vs_',
       encoding: 'utf8'
     },
     mongo: {}

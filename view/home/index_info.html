@@ -1,0 +1,32 @@
+{% extends "../common/base.html" %}
+
+{% block header %}
+
+    <link rel="stylesheet" type="text/css" href="/static/css/pinfo.css"/>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="vs_about_wrap">
+    <header><span class="vs_hd_btn">{{username}}</span><span class="vs_hd_btn iconfont vs_hd_search">&#xe602;</span><span class="vs_hd_btn iconfont">&#xe629;</span></header>
+    <article class="vs_about_icon">
+        <p class="vs_abicon_hd">关于我</p>
+        <p class="vs_abicon_subhd">About Me</p>
+        <div class="vs_abicon_sign"></div>
+    </article>
+    <section class="vs_about_info">
+        <div><img src="http://dummyimage.com/400x600/000/fff" class="vs_about_img"/></div>
+        <div class="vs_about_infoarea">
+            <p class="vs_about_inforow"><span>昵称：</span>{{nickname}}<span></span></p>
+            <p class="vs_about_inforow"><span>QQ：</span><span> {{qq}}</span></p>
+            <p class="vs_about_inforow"><span>邮箱：</span><span> {{email}}</span></p>
+            <p class="vs_about_inforow"><span>技能：</span><span> {{skills}}</span></p>
+            <p class="vs_about_inforow"><span>资历：</span><span> {{years}}</span></p>
+            <p class="vs_about_inforow"><span>自我介绍：</span><span>{{description}} </span></p>
+        </div>
+    </section>
+</div>
+
+{% endblock %}
+

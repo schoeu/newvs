@@ -12,7 +12,7 @@ export default {
       database: 'vs',
       user: 'root',
       password: 'caoyifeng2b',
-      prefix: 'think_',
+      prefix: 'vs_',
       encoding: 'utf8'
     },
     mongo: {

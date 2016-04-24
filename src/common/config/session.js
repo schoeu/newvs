@@ -6,7 +6,7 @@
 export default {
   name: 'vs',
   type: 'file',
-  secret: 'schoeu',
+  secret: 'schoeu~',
   timeout: 24 * 3600,
   cookie: { // cookie options
     length: 32,

@@ -4,5 +4,6 @@
  */
 export default {
   //key: value
-  port: 1110
+  port: 1110,
+  route_on: true
 };
