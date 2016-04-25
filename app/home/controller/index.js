@@ -48,15 +48,20 @@ var _class = function (_Base) {
 
     _class.prototype.indexAction = function () {
         var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
-            var username, data, i, oriImg, oriDate, pathArr;
+            var data, username, i, oriImg, oriDate, pathArr;
             return _regenerator2.default.wrap(function _callee$(_context) {
                 while (1) {
                     switch (_context.prev = _context.next) {
                         case 0:
                             _context.next = 2;
-                            return this.session('islogin');
+                            return this.model('articles').select();
 
                         case 2:
+                            data = _context.sent;
+                            _context.next = 5;
+                            return this.session('islogin');
+
+                        case 5:
                             username = _context.sent;
 
                             if (username) {
@@ -68,15 +73,6 @@ var _class = function (_Base) {
                                     username: ''
                                 });
                             }
-
-                            // 展示作品
-                            _context.next = 6;
-                            return this.model('articles').select();
-
-                        case 6:
-                            data = _context.sent;
-
-
                             for (i = 0; i < data.length; i++) {
                                 oriImg = data[i].images || '';
                                 oriDate = data[i].date || new Date();
@@ -137,12 +133,7 @@ var _class = function (_Base) {
                             return this.session('islogin', username);
 
                         case 9:
-                            this.success({
-                                logined: true,
-                                username: username
-                            });
-                            _context2.next = 13;
-                            break;
+                            return _context2.abrupt('return', this.display('user'));
 
                         case 12:
                             this.redirect('/index/login/');

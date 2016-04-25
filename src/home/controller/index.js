@@ -4,28 +4,26 @@ import Base from './base.js';
 import path from 'path';
 
 export default class extends Base {
+
   /**
    * index action
    * @return {Promise} []
    */
   // index.html
   async indexAction(){
-    //auto render template file index_index.html
-    var username = await this.session('islogin');
-    if (username) {
-        this.assign({
-            username: username
-        });
-    }
-    else {
-        this.assign({
-            username: ''
-        });
-    }
-
       // 展示作品
       let data = await this.model('articles').select();
-
+      var username = await this.session('islogin');
+      if (username) {
+          this.assign({
+              username: username
+          });
+      }
+      else {
+          this.assign({
+            username: ''
+          });
+      }
       for (let i=0;i<data.length;i++) {
           var oriImg = data[i].images || '';
           var oriDate = data[i].date || new Date();
@@ -49,10 +47,7 @@ export default class extends Base {
 
           if (data[0].password === postData.password) {
               await this.session('islogin', username);
-              this.success({
-                  logined: true,
-                  username: username
-              });
+              return this.display('user');
           }
           else {
               this.redirect('/index/login/');
@@ -61,7 +56,7 @@ export default class extends Base {
       else {
         return this.display();
       }
-      
+
     }
 
     // 个人信息

@@ -9,7 +9,15 @@ export default class extends think.logic.base {
    * index action logic
    * @return {} []
    */
-  indexAction(){
-    console.log('logic');
+  async indexAction(){
+    //auto render template file index_index.html
+   
+  }
+
+  async infoAction() {
+    let username = await this.session('islogin');
+    if (!username) {
+      this.redirect('/');
+    }
   }
 }

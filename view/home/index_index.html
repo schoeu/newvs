@@ -8,20 +8,11 @@
 
 {% block content %}
 <div class="vs_wrap">
-  <header>
-    <div class="vs_hd_btn vs_hd_mn vs_login {% if username %} vs_logined {% endif %}">
-      <span>
-        {% if username %}
-          {{username}}
-        {% else %}
-          登录
-        {% endif %}
-      </span>
-      <ul class="vs_hd_menu">
-        <li class="vs_hd_editart"><a href="/article/edit">编辑作品</a></li>
-        <li class="vs_hd_pinfo"><a href="/index/info">个人信息</a></li>
-      </ul>
-    </div><span class="vs_hd_btn iconfont vs_hd_search">&#xe602;</span><span class="vs_hd_btn iconfont">&#xe629;</span>
+  <header class="vs_header_wrap">
+    <span class="vs_hd_btn iconfont vs_hd_search">&#xe602;</span>
+    <span class="vs_hd_btn vs_hd_showmenu">
+      <b></b><b></b><b></b>
+    </span>
   </header>
   <p class="vs_title">越努力，越幸运</p>
   <article class="vs_des"><span class="vs_des_fwd">Yesterday</span><span> is a memory tommorrow is a dream so live for today just do it right now. I believe if you can dream it you can make it, if you do you will win if you don't you won't believe in youself trust youself try your best. don't give up,never give in, never lose hope,never say impossible.</span></article>
@@ -56,78 +47,26 @@
       </div>
     </section>
   </article>
-  <section class="vs_login_shadow">
-    <article class="vs_login_logincenter">
-      <form method="POST" action="javascript:void" id="vs_login_form">
-        <p class="vs_logipts"><span class="vs_login_nameicon"></span>
-          <input type="text" value="" placeholder="用户名" name="username" id="username"/>
-        </p>
-        <p class="vs_logipts"><span class="vs_login_pdicon"></span>
-          <input type="password" value="" placeholder="密码" name="password" id="password"/>
-        </p>
-        <input type="button" value="登录" id="vs_login_submit"/>
-      </form>
-    </article>
-  </section>
 </div>
-
+<div class="vs_menu_silide">
+  <ul class="vs_menu_ul">
+    <li>手绘作品集</li>
+    <li>写真作品集</li>
+    <li>素描作品集</li>
+  </ul>
+</div>
 {% endblock %}
 
 {% block footer %}
 <script>
 
-  var $shadowEle = $('.vs_login_shadow');
-  var $vsLogin = $('.vs_login');
-  $vsLogin.on('click', function () {
-    $shadowEle.show().addClass('vs_login_show');
+  $('.vs_menu_silide').height($(window).height());
+  var $body = $('body');
+  $('.vs_hd_showmenu').on('click', function () {
+    $body.toggleClass('vs_ftrans vs_overhidden');
+    $('.vs_header_wrap').toggleClass('vs_show_type');
   });
 
-  $('.vs_hd_mn').hover(function (e) {
-    var $target = $(this);
-    if ($target.hasClass('vs_logined')) {
-      $target.find('.vs_hd_menu').show().addClass('vs_login_show');
-    }
-  }).on('mouseleave', function (e) {
-    $(this).find('.vs_hd_menu').removeClass('vs_login_show').hide();
-  });
-
-  $('#vs_login_submit').on('click', function () {
-    var $submitEle = $(this);
-    var uname = $('#username').val();
-    var $pwd = $('#password');
-    var pwdText = $pwd.val();
-
-    if (!uname || !pwdText) {
-      $pwd.attr('placeholder', '用户名或密码错误').val('');
-    }
-    else {
-      $submitEle.attr('disabled', 'disabled');
-      $.ajax({
-        type: 'post',
-        url: '/index/login',
-        data: {
-          username: uname,
-          password: pwdText
-        }
-      }).done(function (rs) {
-        console.log(rs);
-        if (rs && rs.errno === 0) {
-          var data = rs.data;
-          // 登录成功
-          if (data.logined) {
-            $shadowEle.removeClass('vs_login_show').hide();
-            $vsLogin.find('span').text(data.username);
-          }
-          // 用户名或密码错误
-          else {
-            $pwd.attr('placeholder', '用户名或密码错误').val('');
-          }
-        }
-      }).always(function (){
-        $submitEle.removeAttr('disabled');
-      });
-    }
-  });
 
 </script>
 
