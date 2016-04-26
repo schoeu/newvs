@@ -40,22 +40,37 @@ export default class extends Base {
     // 登录操作
     async loginAction(){
 
-      if (this.isPost()) {
-          let postData = this.post();
-          let username = postData.username;
-          let data = await this.model('users').field('password').where({username:username}).select();
+        let auth = this.header('authorization');
+        if (!auth) {
+            this.status(401);
+            this.header('WWW-authenticate','Basic');
+        }
+        else {
+            console.log('ori', auth);
+            console.log('base64', new Buffer(auth, 'base64').toString('utf8'));
+        }
 
-          if (data[0].password === postData.password) {
-              await this.session('islogin', username);
-              return this.display('user');
-          }
-          else {
-              this.redirect('/index/login/');
-          }
-      }
-      else {
-        return this.display();
-      }
+        var userData = new Buffer(auth, 'base64').toString().split(':');
+
+        var username = userData[0];
+        var psw = userData[1];
+        this.end('您没有权限');
+
+        console.log(username, psw);
+        if (!think.isEmpty(username)) {
+            let data = await this.model('users').field('password').where({username:username}).select();
+
+            if (data[0].password === psw) {
+                return this.display('user');
+            }
+            else {
+                this.redirect('/index/login/');
+            }
+
+        }
+        else {
+
+        }
 
     }
 
@@ -76,5 +91,27 @@ export default class extends Base {
             username: username
         });
         this.display();
+    }
+
+    // 个人信息
+    async epinfoAction() {
+        let username = await this.session('islogin');
+        var postData = this.post();
+        if (this.isPost()) {
+            var updataData = {
+                title: postData.title || '',
+                description: postData.description || '',
+                classify_first: postData.classify_first || '',
+                classify_second: postData.classify_second || '',
+                date: postData.date || '',
+                is_safe: postData.safe || '',
+                images: file.path || '',
+                authorization: postData.authorization || ''
+            };
+        }
+
+        let data = await this.model('users').add(updataData);
+
+        this.redirect('info');
     }
 }

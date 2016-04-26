@@ -71,6 +71,7 @@ header{
 }
 .vs_art_items{
     -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
     height: 15.6rem;
     background-color: rgb(201,214,223);
     padding: .8rem;
@@ -78,7 +79,8 @@ header{
     overflow: hidden;
 }
 .vs_arts_ctt{
-    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
     margin-top: 1rem;
 }
 .vs_art_items img{
@@ -198,12 +200,18 @@ header{
     right: -250px;
     height: 100%;
     margin-top: -20px;
+    padding: 20px 0;
 }
 .vs_menu_ul{
+    position: relative;
     padding: 0;
     list-style: none;
-    line-height: 2rem;
-    text-align: center;
+    line-height: 3rem;
+    margin: 25px 40px;
+}
+.vs_menu_ul a{
+    color: inherit;
+    text-decoration: none;
 }
 
 body,.vs_hd_showmenu b{
@@ -227,4 +235,68 @@ body,.vs_hd_showmenu b{
 }
 .vs_show_type b:nth-child(2){
     opacity: 0;
+}
+.vs_menu_tree{
+    position: absolute;
+    left: -18px;
+    top: 17px;
+    height: 100%;
+    width: 1px;
+    background-color: rgba(201,214,223,.3);
+}
+
+/* menu tree */
+.vs_menu_ul p{
+    margin: 0;
+    position: relative;
+    font-size: 13px;
+}
+.vs_li_title>p{
+    position: relative;
+}
+.vs_li_title>p:first-child{
+    font-size: 19px;
+}
+.vs_li_title>p:last-child{
+    font-size: 13px;
+    line-height: 13px;
+    margin-bottom: 10px;
+    color: rgba(201, 214, 223, 0.38);
+}
+.vs_li_title>p:first-child:before{
+    position: absolute;
+    content: '';
+    width: 15px;
+    height: 15px;
+    background-color: rgba(201,214,223,.3);
+    border-radius: 50%;
+    left: -25px;
+    top: 10px;
+}
+.vs_menu_ul>li:not(.vs_li_title)>p:last-child{
+    line-height: 12px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    color: rgba(201, 214, 223, 0.38);
+}
+
+.vs_li_title>p:first-child:after {
+    position: absolute;
+    content: '';
+    width: 9px;
+    height: 9px;
+    background-color: rgba(201,214,223,.5);
+    border-radius: 50%;
+    left: -22px;
+    top: 13px;
+}
+.vs_menu_ul>li:not(.vs_li_title)>p:first-child:before{
+    position: absolute;
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-color: rgba(201,214,223,.4);
+    border-radius: 50%;
+    left: -22px;
+    top: 13px;
 }

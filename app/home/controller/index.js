@@ -106,46 +106,55 @@ var _class = function (_Base) {
 
     _class.prototype.loginAction = function () {
         var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
-            var postData, username, data;
+            var auth, userData, username, psw, data;
             return _regenerator2.default.wrap(function _callee2$(_context2) {
                 while (1) {
                     switch (_context2.prev = _context2.next) {
                         case 0:
-                            if (!this.isPost()) {
+                            auth = this.header('authorization');
+
+                            if (!auth) {
+                                this.status(401);
+                                this.header('WWW-authenticate', 'Basic');
+                            } else {
+                                console.log('ori', auth);
+                                console.log('base64', new Buffer(auth, 'base64').toString('utf8'));
+                            }
+
+                            userData = new Buffer(auth, 'base64').toString().split(':');
+                            username = userData[0];
+                            psw = userData[1];
+
+                            this.end('您没有权限');
+
+                            console.log(username, psw);
+
+                            if (think.isEmpty(username)) {
+                                _context2.next = 18;
+                                break;
+                            }
+
+                            _context2.next = 10;
+                            return this.model('users').field('password').where({ username: username }).select();
+
+                        case 10:
+                            data = _context2.sent;
+
+                            if (!(data[0].password === psw)) {
                                 _context2.next = 15;
                                 break;
                             }
 
-                            postData = this.post();
-                            username = postData.username;
-                            _context2.next = 5;
-                            return this.model('users').field('password').where({ username: username }).select();
-
-                        case 5:
-                            data = _context2.sent;
-
-                            if (!(data[0].password === postData.password)) {
-                                _context2.next = 12;
-                                break;
-                            }
-
-                            _context2.next = 9;
-                            return this.session('islogin', username);
-
-                        case 9:
                             return _context2.abrupt('return', this.display('user'));
 
-                        case 12:
+                        case 15:
                             this.redirect('/index/login/');
 
-                        case 13:
-                            _context2.next = 16;
+                        case 16:
+                            _context2.next = 18;
                             break;
 
-                        case 15:
-                            return _context2.abrupt('return', this.display());
-
-                        case 16:
+                        case 18:
                         case 'end':
                             return _context2.stop();
                     }
@@ -208,6 +217,60 @@ var _class = function (_Base) {
         }
 
         return infoAction;
+    }();
+
+    // 个人信息
+
+
+    _class.prototype.epinfoAction = function () {
+        var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4() {
+            var username, postData, updataData, data;
+            return _regenerator2.default.wrap(function _callee4$(_context4) {
+                while (1) {
+                    switch (_context4.prev = _context4.next) {
+                        case 0:
+                            _context4.next = 2;
+                            return this.session('islogin');
+
+                        case 2:
+                            username = _context4.sent;
+                            postData = this.post();
+
+                            if (this.isPost()) {
+                                updataData = {
+                                    title: postData.title || '',
+                                    description: postData.description || '',
+                                    classify_first: postData.classify_first || '',
+                                    classify_second: postData.classify_second || '',
+                                    date: postData.date || '',
+                                    is_safe: postData.safe || '',
+                                    images: file.path || '',
+                                    authorization: postData.authorization || ''
+                                };
+                            }
+
+                            _context4.next = 7;
+                            return this.model('users').add(updataData);
+
+                        case 7:
+                            data = _context4.sent;
+
+
+                            this.redirect('info');
+
+                        case 9:
+                        case 'end':
+                            return _context4.stop();
+                    }
+                }
+            }, _callee4, this);
+        }));
+
+        function epinfoAction() {
+            return ref.apply(this, arguments);
+        }
+
+        return epinfoAction;
     }();
 
     return _class;

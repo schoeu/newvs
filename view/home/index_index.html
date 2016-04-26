@@ -14,7 +14,7 @@
       <b></b><b></b><b></b>
     </span>
   </header>
-  <p class="vs_title">越努力，越幸运</p>
+  <p class="vs_title"><!--越努力，越幸运--></p>
   <article class="vs_des"><span class="vs_des_fwd">Yesterday</span><span> is a memory tommorrow is a dream so live for today just do it right now. I believe if you can dream it you can make it, if you do you will win if you don't you won't believe in youself trust youself try your best. don't give up,never give in, never lose hope,never say impossible.</span></article>
   <p><a href="/index/info" class="vs_aboutme">More about me</a></p>
   <article class="vs_bg_word">
@@ -50,10 +50,33 @@
 </div>
 <div class="vs_menu_silide">
   <ul class="vs_menu_ul">
-    <li>手绘作品集</li>
-    <li>写真作品集</li>
-    <li>素描作品集</li>
+    <li class="vs_li_title">
+      <p><a href="/index/info">关于我</a></p>
+      <p><a href="/index/info">More about me</a></p>
+    </li>
+    <li>
+      <p><a href="/index/info">联系我</a></p>
+      <p><a href="/index/info">contact me</a></p>
+    </li>
+    <li class="vs_li_title">
+      <p><a href="">作品集</a></p>
+      <p><a href="">articles</a></p>
+    </li>
+    <li>
+      <p><a href="">GUI作品集</a></p>
+      <p><a href="">GUI Collections</a></p>
+    </li>
+    <li>
+      <p><a href="">手绘作品集</a></p>
+      <p><a href="">Hand-painted Collections</a></p>
+    </li>
+    <li>
+      <p><a href="">平面作品集</a></p>
+      <p><a href="">Graphic Collections</a></p>
+    </li>
+    <section class="vs_menu_tree"></section>
   </ul>
+
 </div>
 {% endblock %}
 
@@ -61,10 +84,11 @@
 <script>
 
   $('.vs_menu_silide').height($(window).height());
+  $header_wrap = $('.vs_header_wrap');
   var $body = $('body');
   $('.vs_hd_showmenu').on('click', function () {
-    $body.toggleClass('vs_ftrans vs_overhidden');
-    $('.vs_header_wrap').toggleClass('vs_show_type');
+    $body.toggleClass('vs_ftrans');
+    $header_wrap.toggleClass('vs_show_type');
   });
 
 

@@ -1,0 +1,56 @@
+{% extends "../common/base.html" %}
+
+{% block header %}
+
+<link rel="stylesheet" type="text/css" href="/static/css/epinfo.css"/>
+
+{% endblock %}
+
+{% block content %}
+
+<header>
+    <div class="vs_hd_btn vs_hd_mn">
+        <ul class="vs_hd_menu">
+            <li class="vs_hd_editart"><a>编辑作品</a></li>
+            <li class="vs_hd_pinfo"><a href="/users/pinfo">个人信息</a></li>
+        </ul>
+    </div><span class="vs_hd_btn iconfont vs_hd_search">&#xe602;</span><span class="vs_hd_btn iconfont">&#xe629;</span>
+</header>
+<form action="/users/pinfo" method="POST" id="va_pinfo_form">
+    <p class="va_pinfo_area">
+        <lable for="nickname">昵称</lable>
+        <input type="text" name="nickname" id="nickname"/>
+    </p>
+    <p class="va_pinfo_area">
+        <lable for="qq">QQ</lable>
+        <input type="text" name="qq" id="qq"/>
+    </p>
+    <p class="va_pinfo_area">
+        <lable for="email">邮箱</lable>
+        <input type="text" name="email" id="email"/>
+    </p>
+    <p class="va_pinfo_area">
+        <lable for="userhob">爱好</lable>
+        <textarea cols="60" rows="3" name="userhob" id="userhob"></textarea>
+    </p>
+    <p class="va_pinfo_area">
+        <lable for="skills">技能</lable>
+        <textarea cols="60" rows="3" name="skills" id="skills"></textarea>
+    </p>
+    <p class="va_pinfo_area">
+        <lable for="years">资历</lable>
+        <input type="text" name="years" id="years"/>
+    </p>
+    <p class="va_pinfo_area">
+        <lable for="description">自我简介</lable>
+        <textarea cols="100" rows="3" name="description" id="description"></textarea>
+    </p>
+    <p class="va_pinfo_area">
+        <lable></lable>
+        <input type="submit" value="确认" id="submit"/>
+    </p>
+    <div class="vs_pinfo_img"><img src="http://dummyimage.com/400x600/000/fff"/></div>
+</form>
+
+{% endblock %}
+

@@ -1,12 +1,1 @@
-{
-    "version": 3,
-    "sources": [
-        "../../../src/home/logic/index.js"
-    ],
-    "names": [],
-    "mappings": "AAAA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;mBAWQ,W;;;;;;;;;;;;;;;;;;;;;;mBAKA,U;;UACA,Q;;;;;;qBAAiB,KAAK,OAAL,CAAa,SAAb,C;;;AAAjB,sB;;AACJ,kBAAI,CAAC,QAAL,EAAe;AACb,qBAAK,QAAL,CAAc,GAAd;AACD;;;;;;;;;;;;;;;;;;EAdwB,MAAM,KAAN,CAAY,I",
-    "file": "../../../src/home/logic/index.js",
-    "sourcesContent": [
-        "'use strict';\n/**\n * logic\n * @param  {} []\n * @return {}     []\n */\nexport default class extends think.logic.base {\n  /**\n   * index action logic\n   * @return {} []\n   */\n  async indexAction(){\n    //auto render template file index_index.html\n   \n  }\n\n  async infoAction() {\n    let username = await this.session('islogin');\n    if (!username) {\n      this.redirect('/');\n    }\n  }\n}"
-    ]
-}
+{"version":3,"sources":["../../../src/home/logic/index.js"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;mBAWQ,W;;;;;;;;;;;;;;;;;;;;;;mBAKA,U;;UACA,Q;;;;;;qBAAiB,KAAK,OAAL,CAAa,SAAb,C;;;AAAjB,sB;;AACJ,kBAAI,CAAC,QAAL,EAAe;AACb,qBAAK,QAAL,CAAc,GAAd;AACD;;;;;;;;;;;;;;;;;;EAdwB,MAAM,KAAN,CAAY,I","file":"index.js","sourcesContent":["'use strict';\n/**\n * logic\n * @param  {} []\n * @return {}     []\n */\nexport default class extends think.logic.base {\n  /**\n   * index action logic\n   * @return {} []\n   */\n  async indexAction(){\n    //auto render template file index_index.html\n   \n  }\n\n  async infoAction() {\n    let username = await this.session('islogin');\n    if (!username) {\n      this.redirect('/');\n    }\n  }\n}"]}
