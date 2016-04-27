@@ -7,14 +7,6 @@
 {% endblock %}
 
 {% block content %}
-<header>
-    <div class="vs_hd_btn vs_hd_mn"><span></span>
-        <ul class="vs_hd_menu">
-            <li class="vs_hd_editart"><a>编辑作品</a></li>
-            <li class="vs_hd_pinfo"><a href="/users/pinfo">个人信息</a></li>
-        </ul>
-    </div><span class="vs_hd_btn iconfont vs_hd_search">&#xe602;</span><span class="vs_hd_btn iconfont">&#xe629;</span>
-</header>
 <form action="/users/articles" method="POST" id="va_art_form" enctype="multipart/form-data">
     <p class="va_art_area">
         <lable for="title">作品名称</lable>
