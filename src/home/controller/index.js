@@ -5,73 +5,60 @@ import path from 'path';
 
 export default class extends Base {
 
-  /**
-   * index action
-   * @return {Promise} []
-   */
-  // index.html
-  async indexAction(){
-      // 展示作品
-      let data = await this.model('articles').select();
-      var username = await this.session('islogin');
-      if (username) {
-          this.assign({
+    /**
+    * index action
+    * @return {Promise} []
+    */
+    // index.html
+    async indexAction(){
+        // 展示作品
+        let data = await this.model('articles').select();
+        var username = await this.session('islogin');
+        if (username) {
+            this.assign({
               username: username
-          });
-      }
-      else {
-          this.assign({
-            username: ''
-          });
-      }
-      for (let i=0;i<data.length;i++) {
-          var oriImg = data[i].images || '';
-          var oriDate = data[i].date || new Date();
-          var pathArr = oriImg.split(path.sep) || [];
-          data[i].date = think.datetime(oriDate).split(' ')[0];
-          data[i].images = '/static/' + pathArr.splice(-2,2).join(path.sep);
-      }
-      this.assign({
-          datalist: data || []
-      });
+            });
+        }
+        else {
+            this.assign({
+                username: ''
+            });
+        }
+        for (let i=0;i<data.length;i++) {
+            var oriImg = data[i].images || '';
+            var oriDate = data[i].date || new Date();
+            var pathArr = oriImg.split(path.sep) || [];
+            data[i].date = think.datetime(oriDate).split(' ')[0];
+            data[i].images = '/static/' + pathArr.splice(-2,2).join(path.sep);
+        }
+        this.assign({
+            datalist: data || []
+        });
 
-    return this.display();
-  }
+        return this.display();
+    }
     // 登录操作
     async loginAction(){
-
         let auth = this.header('authorization');
         if (!auth) {
             this.status(401);
             this.header('WWW-authenticate','Basic');
         }
         else {
-            console.log('ori', auth);
-            console.log('base64', new Buffer(auth, 'base64').toString('utf8'));
-        }
-
-        var userData = new Buffer(auth, 'base64').toString().split(':');
-
-        var username = userData[0];
-        var psw = userData[1];
-        this.end('您没有权限');
-
-        console.log(username, psw);
-        if (!think.isEmpty(username)) {
-            let data = await this.model('users').field('password').where({username:username}).select();
-
-            if (data[0].password === psw) {
-                return this.display('user');
+            let base64Str = /^basic +(\w+=*) *$/ig.exec(auth);
+            let userData = new Buffer(base64Str[1] || '', 'base64').toString().split(':');
+            let username = userData[0] || '';
+            let psw = userData[1] || '';
+            if (!think.isEmpty(username)) {
+                let data = await this.model('users').field('password').where({username:username}).select();
+                if (data[0].password === psw) {
+                    this.redirect('/article/edit/');
+                }
+                else {
+                    this.redirect('/index/login/');
+                }
             }
-            else {
-                this.redirect('/index/login/');
-            }
-
         }
-        else {
-
-        }
-
     }
 
     // 个人信息
@@ -111,7 +98,6 @@ export default class extends Base {
         }
 
         let data = await this.model('users').add(updataData);
-
         this.redirect('info');
     }
 }

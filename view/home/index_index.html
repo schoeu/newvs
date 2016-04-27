@@ -8,12 +8,7 @@
 
 {% block content %}
 <div class="vs_wrap">
-  <header class="vs_header_wrap">
-    <span class="vs_hd_btn iconfont vs_hd_search">&#xe602;</span>
-    <span class="vs_hd_btn vs_hd_showmenu">
-      <b></b><b></b><b></b>
-    </span>
-  </header>
+  {% include '../common/header.html' %}
   <p class="vs_title"><!--越努力，越幸运--></p>
   <article class="vs_des"><span class="vs_des_fwd">Yesterday</span><span> is a memory tommorrow is a dream so live for today just do it right now. I believe if you can dream it you can make it, if you do you will win if you don't you won't believe in youself trust youself try your best. don't give up,never give in, never lose hope,never say impossible.</span></article>
   <p><a href="/index/info" class="vs_aboutme">More about me</a></p>
@@ -48,50 +43,8 @@
     </section>
   </article>
 </div>
-<div class="vs_menu_silide">
-  <ul class="vs_menu_ul">
-    <li class="vs_li_title">
-      <p><a href="/index/info">关于我</a></p>
-      <p><a href="/index/info">More about me</a></p>
-    </li>
-    <li>
-      <p><a href="/index/info">联系我</a></p>
-      <p><a href="/index/info">contact me</a></p>
-    </li>
-    <li class="vs_li_title">
-      <p><a href="">作品集</a></p>
-      <p><a href="">articles</a></p>
-    </li>
-    <li>
-      <p><a href="">GUI作品集</a></p>
-      <p><a href="">GUI Collections</a></p>
-    </li>
-    <li>
-      <p><a href="">手绘作品集</a></p>
-      <p><a href="">Hand-painted Collections</a></p>
-    </li>
-    <li>
-      <p><a href="">平面作品集</a></p>
-      <p><a href="">Graphic Collections</a></p>
-    </li>
-    <section class="vs_menu_tree"></section>
-  </ul>
-
-</div>
 {% endblock %}
 
 {% block footer %}
-<script>
-
-  $('.vs_menu_silide').height($(window).height());
-  $header_wrap = $('.vs_header_wrap');
-  var $body = $('body');
-  $('.vs_hd_showmenu').on('click', function () {
-    $body.toggleClass('vs_ftrans');
-    $header_wrap.toggleClass('vs_show_type');
-  });
-
-
-</script>
-
+  {% include '../common/header.js' %}
 {% endblock %}

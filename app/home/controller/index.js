@@ -41,9 +41,9 @@ var _class = function (_Base) {
     }
 
     /**
-     * index action
-     * @return {Promise} []
-     */
+    * index action
+    * @return {Promise} []
+    */
     // index.html
 
     _class.prototype.indexAction = function () {
@@ -106,55 +106,47 @@ var _class = function (_Base) {
 
     _class.prototype.loginAction = function () {
         var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
-            var auth, userData, username, psw, data;
+            var auth, base64Str, userData, username, psw, data;
             return _regenerator2.default.wrap(function _callee2$(_context2) {
                 while (1) {
                     switch (_context2.prev = _context2.next) {
                         case 0:
                             auth = this.header('authorization');
 
-                            if (!auth) {
-                                this.status(401);
-                                this.header('WWW-authenticate', 'Basic');
-                            } else {
-                                console.log('ori', auth);
-                                console.log('base64', new Buffer(auth, 'base64').toString('utf8'));
-                            }
-
-                            userData = new Buffer(auth, 'base64').toString().split(':');
-                            username = userData[0];
-                            psw = userData[1];
-
-                            this.end('您没有权限');
-
-                            console.log(username, psw);
-
-                            if (think.isEmpty(username)) {
-                                _context2.next = 18;
+                            if (auth) {
+                                _context2.next = 6;
                                 break;
                             }
 
-                            _context2.next = 10;
-                            return this.model('users').field('password').where({ username: username }).select();
+                            this.status(401);
+                            this.header('WWW-authenticate', 'Basic');
+                            _context2.next = 15;
+                            break;
 
-                        case 10:
-                            data = _context2.sent;
+                        case 6:
+                            base64Str = /^basic +(\w+=*) *$/ig.exec(auth);
+                            userData = new Buffer(base64Str[1] || '', 'base64').toString().split(':');
+                            username = userData[0] || '';
+                            psw = userData[1] || '';
 
-                            if (!(data[0].password === psw)) {
+                            if (think.isEmpty(username)) {
                                 _context2.next = 15;
                                 break;
                             }
 
-                            return _context2.abrupt('return', this.display('user'));
+                            _context2.next = 13;
+                            return this.model('users').field('password').where({ username: username }).select();
+
+                        case 13:
+                            data = _context2.sent;
+
+                            if (data[0].password === psw) {
+                                this.redirect('/article/edit/');
+                            } else {
+                                this.redirect('/index/login/');
+                            }
 
                         case 15:
-                            this.redirect('/index/login/');
-
-                        case 16:
-                            _context2.next = 18;
-                            break;
-
-                        case 18:
                         case 'end':
                             return _context2.stop();
                     }
@@ -254,7 +246,6 @@ var _class = function (_Base) {
 
                         case 7:
                             data = _context4.sent;
-
 
                             this.redirect('info');
 
