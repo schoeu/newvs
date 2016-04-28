@@ -9,21 +9,11 @@ export default class extends Base {
     * index action
     * @return {Promise} []
     */
-    // index.html
     async indexAction(){
         // 展示作品
         let data = await this.model('articles').select();
         var username = await this.session('islogin');
-        if (username) {
-            this.assign({
-              username: username
-            });
-        }
-        else {
-            this.assign({
-                username: ''
-            });
-        }
+
         for (let i=0;i<data.length;i++) {
             var oriImg = data[i].images || '';
             var oriDate = data[i].date || new Date();
@@ -37,25 +27,22 @@ export default class extends Base {
 
         return this.display();
     }
+    
     // 登录操作
-    async loginAction(){
-        let auth = this.header('authorization');
-        if (!auth) {
-            this.status(401);
-            this.header('WWW-authenticate','Basic');
+    async loginAction() {
+
+        if (this.isGet()) {
+            this.display();
         }
-        else {
-            let base64Str = /^basic +(\w+=*) *$/ig.exec(auth);
-            let userData = new Buffer(base64Str[1] || '', 'base64').toString().split(':');
-            let username = userData[0] || '';
-            let psw = userData[1] || '';
+        else if (this.isPost()) {
+            let userData = this.post();
+            let username = userData.username || '';
+            let psw = userData.password || '';
             if (!think.isEmpty(username)) {
-                let data = await this.model('users').field('password').where({username:username}).select();
+                let data = await this.model('users').field('password').where({username: username}).select();
                 if (data[0].password === psw) {
-                    this.redirect('/article/edit/');
-                }
-                else {
-                    this.redirect('/index/login/');
+                    this.session('vslogin', username);
+                    this.end('/article/edit');
                 }
             }
         }
@@ -80,7 +67,7 @@ export default class extends Base {
         this.display();
     }
 
-    // 个人信息
+    // 作品信息
     async epinfoAction() {
         let username = await this.session('islogin');
         var postData = this.post();
@@ -99,5 +86,8 @@ export default class extends Base {
 
         let data = await this.model('users').add(updataData);
         this.redirect('info');
+    }
+    async signinAction() {
+
     }
 }

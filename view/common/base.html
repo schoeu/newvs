@@ -45,6 +45,16 @@
             <p><a href="">平面作品集</a></p>
             <p><a href="">Graphic Collections</a></p>
         </li>
+        {% if isLogined%}
+        <li class="vs_li_title">
+            <p><a href="/article/edit">编辑作品</a></p>
+            <p><a href="/article/edit">Edit articles</a></p>
+        </li>
+        <li class="vs_li_title">
+            <p><a href="/index/info">编辑个人信息</a></p>
+            <p><a href="/index/info">Edit personal info</a></p>
+        </li>
+        {% endif %}
         <section class="vs_menu_tree"></section>
     </ul>
 

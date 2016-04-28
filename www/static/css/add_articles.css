@@ -53,7 +53,6 @@ body{
     margin-left: 1.28rem;
     color: rgb(82,97,107);
     vertical-align: middle;
-    font-size: 2rem;
     margin-top: 1rem;
 }
 header{
@@ -68,9 +67,6 @@ header{
     width: 70%;
     margin: 0 auto;
     margin-top: 1.6rem;
-}
-.vs_hd_search{
-    font-size: 2.4rem;
 }
 .vs_hd_menu{
     position: absolute;

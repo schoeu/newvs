@@ -8,7 +8,6 @@
 
 {% block content %}
 <div class="vs_wrap">
-  {% include '../common/header.html' %}
   <p class="vs_title"><!--越努力，越幸运--></p>
   <article class="vs_des"><span class="vs_des_fwd">Yesterday</span><span> is a memory tommorrow is a dream so live for today just do it right now. I believe if you can dream it you can make it, if you do you will win if you don't you won't believe in youself trust youself try your best. don't give up,never give in, never lose hope,never say impossible.</span></article>
   <p><a href="/index/info" class="vs_aboutme">More about me</a></p>
@@ -33,9 +32,7 @@
             {% if (loop.index0 + 1) % 4 == 0 or loop.last %}
               </div>
             {% endif %}
-
           {% endfor %}
-
       </div>
       <div class="vs_more_ctt">
         <button class="vs_getmore">加载更多</button>

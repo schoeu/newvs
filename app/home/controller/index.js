@@ -44,7 +44,6 @@ var _class = function (_Base) {
     * index action
     * @return {Promise} []
     */
-    // index.html
 
     _class.prototype.indexAction = function () {
         var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
@@ -64,15 +63,7 @@ var _class = function (_Base) {
                         case 5:
                             username = _context.sent;
 
-                            if (username) {
-                                this.assign({
-                                    username: username
-                                });
-                            } else {
-                                this.assign({
-                                    username: ''
-                                });
-                            }
+
                             for (i = 0; i < data.length; i++) {
                                 oriImg = data[i].images || '';
                                 oriDate = data[i].date || new Date();
@@ -87,7 +78,7 @@ var _class = function (_Base) {
 
                             return _context.abrupt('return', this.display());
 
-                        case 10:
+                        case 9:
                         case 'end':
                             return _context.stop();
                     }
@@ -101,52 +92,53 @@ var _class = function (_Base) {
 
         return indexAction;
     }();
+
     // 登录操作
 
 
     _class.prototype.loginAction = function () {
         var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
-            var auth, base64Str, userData, username, psw, data;
+            var userData, username, psw, data;
             return _regenerator2.default.wrap(function _callee2$(_context2) {
                 while (1) {
                     switch (_context2.prev = _context2.next) {
                         case 0:
-                            auth = this.header('authorization');
-
-                            if (auth) {
-                                _context2.next = 6;
+                            if (!this.isGet()) {
+                                _context2.next = 4;
                                 break;
                             }
 
-                            this.status(401);
-                            this.header('WWW-authenticate', 'Basic');
-                            _context2.next = 15;
+                            this.display();
+                            _context2.next = 13;
                             break;
 
-                        case 6:
-                            base64Str = /^basic +(\w+=*) *$/ig.exec(auth);
-                            userData = new Buffer(base64Str[1] || '', 'base64').toString().split(':');
-                            username = userData[0] || '';
-                            psw = userData[1] || '';
-
-                            if (think.isEmpty(username)) {
-                                _context2.next = 15;
+                        case 4:
+                            if (!this.isPost()) {
+                                _context2.next = 13;
                                 break;
                             }
 
-                            _context2.next = 13;
+                            userData = this.post();
+                            username = userData.username || '';
+                            psw = userData.password || '';
+
+                            if (think.isEmpty(username)) {
+                                _context2.next = 13;
+                                break;
+                            }
+
+                            _context2.next = 11;
                             return this.model('users').field('password').where({ username: username }).select();
 
-                        case 13:
+                        case 11:
                             data = _context2.sent;
 
                             if (data[0].password === psw) {
-                                this.redirect('/article/edit/');
-                            } else {
-                                this.redirect('/index/login/');
+                                this.session('vslogin', username);
+                                this.end('/article/edit');
                             }
 
-                        case 15:
+                        case 13:
                         case 'end':
                             return _context2.stop();
                     }
@@ -211,7 +203,7 @@ var _class = function (_Base) {
         return infoAction;
     }();
 
-    // 个人信息
+    // 作品信息
 
 
     _class.prototype.epinfoAction = function () {
@@ -262,6 +254,26 @@ var _class = function (_Base) {
         }
 
         return epinfoAction;
+    }();
+
+    _class.prototype.signinAction = function () {
+        var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee5() {
+            return _regenerator2.default.wrap(function _callee5$(_context5) {
+                while (1) {
+                    switch (_context5.prev = _context5.next) {
+                        case 0:
+                        case 'end':
+                            return _context5.stop();
+                    }
+                }
+            }, _callee5, this);
+        }));
+
+        function signinAction() {
+            return ref.apply(this, arguments);
+        }
+
+        return signinAction;
     }();
 
     return _class;

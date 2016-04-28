@@ -1,9 +1,5 @@
 {% extends "../common/base.html" %}
 
-{% block header %}
-    <link rel="stylesheet" type="text/css" href="/static/css/home.css"/>
-{% endblock %}
-
 {% block content %}
 <section class="vs_login_shadow">
     <article class="vs_login_logincenter">
@@ -47,7 +43,7 @@
             $submitEle.attr('disabled', 'disabled');
             $.ajax({
                 type: 'post',
-                url: '/login',
+                url: '/index/login',
                 data: {
                     username: uname,
                     password: pwdText
